@@ -13,14 +13,14 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import { CookieAPI } from "../utils/CookieAPI";
 import useTheme from "../hooks/useTheme";
+import { LocalStorageAPI } from "../utils/LocalStorageAPI";
 
 const Navbar = () => {
   const navigate = useNavigate();
 
   const { logoutUser } = useAuth();
-  const isAuthenticated = CookieAPI.getToken();
+  const isAuthenticated = Boolean(LocalStorageAPI.getLocalStorageToken());
 
   const [mode, changeColorMode] = useTheme();
 

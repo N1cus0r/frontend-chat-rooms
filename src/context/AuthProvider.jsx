@@ -12,9 +12,11 @@ const AuthProvider = ({ children }) => {
 
   const navigate = useNavigate();
 
-  const setUserInfo = async () => {
+  const setUserInfo = async (access_token) => {
     await axios
-      .get("/users/me")
+      .get("/users/me", {
+        headers: { Authorization: `Bearer ${access_token}` },
+      })
       .then((res) => LocalStorageAPI.setLocalStorageUser(res.data))
       .catch((e) => console.log(e));
   };
@@ -55,7 +57,9 @@ const AuthProvider = ({ children }) => {
       .post("/auth/jwt/login", { username, password })
       .then((res) => {
         if (res.status === 200) {
-          setUserInfo();
+          const { access_token } = res.data;
+          LocalStorageAPI.setLocalStorageToken(access_token);
+          setUserInfo(access_token);
           navigate("/");
         }
       })
@@ -72,13 +76,9 @@ const AuthProvider = ({ children }) => {
       await axios.put("/rooms/leave-room", { code: room.code });
     }
 
-    await axiosLogin.post("/auth/jwt/logout").then((res) => {
-      if (res.status === 200) {
-        LocalStorageAPI.delLocalStorageRoom();
-        LocalStorageAPI.delLocalStorageUser();
-        navigate("/login");
-      }
-    });
+    LocalStorageAPI.delLocalStorageRoom();
+    LocalStorageAPI.delLocalStorageUser();
+    return navigate("/login");
   };
 
   const user = LocalStorageAPI.getLocalStorageUser();

@@ -12,6 +12,18 @@ export class LocalStorageAPI {
     localStorage.removeItem("room");
   }
 
+  static getLocalStorageToken() {
+    return JSON.parse(localStorage.getItem("access_token"));
+  }
+
+  static setLocalStorageToken(tokens) {
+    localStorage.setItem("access_token", JSON.stringify(tokens));
+  }
+
+  static delLocalStorageToken() {
+    localStorage.removeItem("access_token");
+  }
+
   static getLocalStorageUser() {
     return JSON.parse(localStorage.getItem("user"));
   }
@@ -22,7 +34,6 @@ export class LocalStorageAPI {
 
   static delLocalStorageUser() {
     localStorage.removeItem("user");
-    // window.dispatchEvent(new Event("storage"));
   }
 
   static getLocalStorageTheme() {

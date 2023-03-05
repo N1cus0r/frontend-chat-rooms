@@ -68,6 +68,7 @@ const RoomProvider = ({ children }) => {
 
   const checkUserInRoom = async () => {
     await axios.get("/rooms/user-in-room").then((res) => {
+      console.log(res);
       if (res.status === 200 && res.data) {
         const room = res.data;
         LocalStorageAPI.setLocalStorageRoom(room);

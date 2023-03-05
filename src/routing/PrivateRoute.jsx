@@ -1,9 +1,9 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { CookieAPI } from "../utils/CookieAPI";
+import { LocalStorageAPI } from "../utils/LocalStorageAPI";
 
 const PrivateRoute = () => {
-  const token = CookieAPI.getToken();
+  const token = LocalStorageAPI.getLocalStorageToken();
 
   return token ? <Outlet /> : <Navigate to="/login" />;
 };
