@@ -6,6 +6,7 @@ const useAxiosLogin = () => {
     baseURL,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
+      "Access-Control-Allow-Origin": process.env.REACT_APP_CLIENT_HOST_URL,
     },
     withCredentials: true,
   });
