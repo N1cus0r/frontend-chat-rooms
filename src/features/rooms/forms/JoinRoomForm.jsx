@@ -57,7 +57,7 @@ const JoinRoomForm = ({
           />
         </Grid>
         <Grid item>
-          <Button fullWidth onClick={handleFormSubmit}>
+          <Button fullWidth onClick={handleFormSubmit} disabled={loading}>
             Join
           </Button>
         </Grid>

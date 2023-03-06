@@ -29,7 +29,7 @@ const Home = () => {
   };
 
   const handleJoinFormSubmit = async () => {
-    await joinRoom(roomCode, setErrorMessage);
+    await joinRoom(roomCode, setLoading, setErrorMessage);
   };
 
   useEffect(() => {
@@ -54,6 +54,7 @@ const Home = () => {
             <TabPanel value="join">
               <JoinRoomForm
                 code={roomCode}
+                loading={loading}
                 setCode={setRoomCode}
                 errorMessage={errorMessage}
                 setErrorMessage={setErrorMessage}

@@ -6,24 +6,28 @@ import useRoom from "../hooks/useRoom";
 import { LocalStorageAPI } from "../utils/LocalStorageAPI";
 
 const Room = () => {
-  const [room, setRoom] = useState(LocalStorageAPI.getLocalStorageRoom());
-  const { getRoomMessages, updateRoomAfterEvent, hostLeftCallback } = useRoom();
   const { user } = useAuth();
   const socket = useRef(null);
+
+  const [room, setRoom] = useState(LocalStorageAPI.getLocalStorageRoom());
+  const { getRoomMessages, updateRoomAfterEvent, hostLeftCallback } = useRoom();
 
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
 
   const bottomMessageRef = useRef();
 
-  const sendMessage = () => {
-    socket.current.emit("chat_message", {
+  const [loading, setLoading] = useState(false);
+
+  const sendMessage = async () => {
+    await socket.current.emit("chat_message", {
       text: message,
       room_id: room._id,
       room_code: room.code,
       user_id: user.id,
       user_username: user.username,
     });
+    setMessage("");
   };
 
   const emitJoinRoomEvent = async () => {
@@ -34,11 +38,13 @@ const Room = () => {
   };
 
   const emitLeaveRoomEvent = async () => {
+    setLoading(true);
     await socket.current.emit("leave_room", {
       code: room.code,
       host_id: room.host_id,
       user_id: user.id,
     });
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -71,7 +77,6 @@ const Room = () => {
 
     socket.current.on("chat_message", (message) => {
       setMessages((prevValue) => [...prevValue, message]);
-      setMessage("");
     });
 
     const LocalStorageRoomUpdate = () => {
@@ -91,6 +96,7 @@ const Room = () => {
       room={room}
       messages={messages}
       message={message}
+      loading={loading}
       bottomMessageRef={bottomMessageRef}
       setMessage={setMessage}
       sendMessage={sendMessage}

@@ -102,7 +102,7 @@ const RegisterForm = ({
       </Grid>
       <Grid item container direction="column" spacing={0.5}>
         <Grid item>
-          <Button fullWidth onClick={handleFormSubmit}>
+          <Button fullWidth onClick={handleFormSubmit} disabled={loading}>
             Register
           </Button>
         </Grid>

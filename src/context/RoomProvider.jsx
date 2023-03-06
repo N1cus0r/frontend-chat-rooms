@@ -24,7 +24,8 @@ const RoomProvider = ({ children }) => {
       .finally(() => setLoading(false));
   };
 
-  const joinRoom = async (code, setErrorMessage) => {
+  const joinRoom = async (code, setLoading, setErrorMessage) => {
+    setLoading(true);
     await axios
       .put("/rooms/join-room", { code })
       .then((res) => {
@@ -35,7 +36,8 @@ const RoomProvider = ({ children }) => {
       })
       .catch((e) => {
         setErrorMessage(e.response.data.detail);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   const leaveRoom = async (code) => {

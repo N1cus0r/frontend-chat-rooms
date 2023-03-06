@@ -22,6 +22,12 @@ const Login = () => {
 
   const { registerUser, loginUser } = useAuth();
 
+  const clearForms = () => {
+    setUsername("");
+    setEmail("");
+    setPassword("");
+  };
+
   const handleFormChange = (e, formType) => {
     setFormType(formType);
   };
@@ -34,6 +40,7 @@ const Login = () => {
     }
 
     await loginUser(email, password, setErrorMessage, setLoading);
+    clearForms();
   };
 
   const handleRegisterFormSubmit = async () => {
@@ -51,6 +58,7 @@ const Login = () => {
       setMessage,
       setLoading
     );
+    clearForms();
   };
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Divider, Grid, Paper } from "@mui/material";
+import { Box, Divider, Grid, LinearProgress, Paper } from "@mui/material";
 import CenteredBox from "../../../layouts/CenteredBox";
 import CenteredGridContainer from "../../../layouts/CenteredGridContainer";
 import RoomInfo from "./RoomInfo";
@@ -10,6 +10,7 @@ const RoomContent = ({
   room,
   messages,
   message,
+  loading,
   bottomMessageRef,
   setMessage,
   sendMessage,
@@ -53,6 +54,7 @@ const RoomContent = ({
                 <Grid item>
                   <RoomInput
                     message={message}
+                    loading={loading}
                     setMessage={setMessage}
                     sendMessage={sendMessage}
                   />
@@ -61,6 +63,11 @@ const RoomContent = ({
             </Box>
           </Paper>
         </Grid>
+        {loading && (
+          <Grid item sx={{ width: 280 }}>
+            <LinearProgress color="primary" />
+          </Grid>
+        )}
       </CenteredGridContainer>
     </CenteredBox>
   );

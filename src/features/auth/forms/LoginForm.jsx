@@ -83,7 +83,7 @@ const LoginForm = ({
       <Grid item>
         <Grid container direction="column" spacing={0.5}>
           <Grid item>
-            <Button fullWidth onClick={handleFormSubmit}>
+            <Button fullWidth onClick={handleFormSubmit} disabled={loading}>
               Login
             </Button>
           </Grid>

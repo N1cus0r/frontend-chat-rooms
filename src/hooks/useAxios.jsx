@@ -17,11 +17,9 @@ const useAxios = () => {
   useEffect(() => {
     const requestInterceptor = axiosApi.interceptors.request.use(
       async (config) => {
-        console.log("request interceptor");
         if (!config.headers.Authorization) {
           config.headers.Authorization = `Bearer ${accessToken}`;
         }
-        console.log(config.headers.Authorization);
         return config;
       }
     );
