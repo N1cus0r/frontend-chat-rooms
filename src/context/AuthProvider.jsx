@@ -76,8 +76,9 @@ const AuthProvider = ({ children }) => {
       await axios.put("/rooms/leave-room", { code: room.code });
     }
 
-    LocalStorageAPI.delLocalStorageRoom();
     LocalStorageAPI.delLocalStorageUser();
+    LocalStorageAPI.delLocalStorageToken();
+    LocalStorageAPI.delLocalStorageRoom();
     return navigate("/login");
   };
 

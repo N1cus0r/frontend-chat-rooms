@@ -61,15 +61,6 @@ const Login = () => {
     clearForms();
   };
 
-  useEffect(() => {
-    if (LocalStorageAPI.getLocalStorageRoom()) {
-      LocalStorageAPI.delLocalStorageRoom();
-    }
-    if (LocalStorageAPI.getLocalStorageUser()) {
-      LocalStorageAPI.delLocalStorageUser();
-    }
-  }, []);
-
   return (
     <Grid
       container

@@ -72,9 +72,18 @@ const Navbar = () => {
             </IconButton>
           </Tooltip>
           {isAuthenticated && (
-            <Button onClick={async () => await logoutUser()} color="inherit">
+            <Typography
+              variant="h6"
+              noWrap
+              sx={{
+                color: "inherit",
+                textDecoration: "none",
+                fontFamily: "monospace",
+              }}
+              onClick={async () => await logoutUser()}
+            >
               Logout
-            </Button>
+            </Typography>
           )}
         </Stack>
       </Toolbar>

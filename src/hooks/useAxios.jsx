@@ -1,8 +1,11 @@
 import axios from "axios";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { LocalStorageAPI } from "../utils/LocalStorageAPI";
 
 const useAxios = () => {
+  const navigate = useNavigate();
+
   const accessToken = LocalStorageAPI.getLocalStorageToken();
 
   const baseURL = process.env.REACT_APP_SERVER_HOST_URL;
@@ -25,12 +28,16 @@ const useAxios = () => {
     );
 
     const responseInterceptor = axiosApi.interceptors.response.use(
-      async (response) => {
-        console.log("response interceptor");
-        return response;
-      },
+      (response) => response,
       async (error) => {
-        console.log("response interceptor");
+        const prevConfig = error?.config;
+        if (error.response.status === 401 && !prevConfig?.sent) {
+          LocalStorageAPI.delLocalStorageUser();
+          LocalStorageAPI.delLocalStorageToken();
+          LocalStorageAPI.delLocalStorageRoom();
+          return navigate("/login");
+        }
+
         return Promise.reject(error);
       }
     );
