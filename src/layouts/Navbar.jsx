@@ -22,7 +22,7 @@ const Navbar = () => {
   const { logoutUser } = useAuth();
   const isAuthenticated = Boolean(LocalStorageAPI.getLocalStorageToken());
 
-  const [mode, changeColorMode] = useTheme();
+  const { mode, changeColorMode } = useTheme();
 
   // console.log(mode);
 

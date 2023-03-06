@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@emotion/react";
-import { createTheme, colors, CssBaseline } from "@mui/material";
+import { createTheme, colors, CssBaseline, useMediaQuery } from "@mui/material";
 import React, { createContext, useMemo, useState } from "react";
 import { LocalStorageAPI } from "../utils/LocalStorageAPI";
 
@@ -43,8 +43,10 @@ const AppTheme = ({ children }) => {
     [mode]
   );
 
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
-    <ColorModeContext.Provider value={{ mode, changeColorMode }}>
+    <ColorModeContext.Provider value={{ mode, changeColorMode, isMobile }}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {children}

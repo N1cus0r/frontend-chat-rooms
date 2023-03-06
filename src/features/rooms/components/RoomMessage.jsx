@@ -19,7 +19,7 @@ const RoomMessage = ({ message }) => {
         sx={{
           marginLeft: messageMarginLeft,
           marginRight: messageMarginRight,
-          maxWidth: 350,
+          maxWidth: { xs: 310, md: 350 },
           borderRadius: 5,
         }}
         elevation={5}
